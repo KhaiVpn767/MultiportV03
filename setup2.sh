@@ -22,7 +22,7 @@ echo -e "\e[0m"
 echo ""
 sleep 1
 # Insert Password
-Password=khaivpnking
+Password=khaivpnking02
 # Execute
 read -p "Please Insert The License Key : " Passwordnya
 if [ $Password = $Passwordnya ]; then
@@ -90,6 +90,19 @@ read -p "   Subdomain: " host1
 echo "IP=" >> /var/lib/premium-script/ipvps.conf
 echo $host1 > /root/domain
 echo ""
+elif [[ $host == "2" ]]; then
+#install cf
+wget https://raw.githubusercontent.com/${GitUser}/multiport/main/install/cf.sh && chmod +x cf.sh && ./cf.sh
+rm -f /root/cf.sh
+clear
+else
+echo -e "Random Subdomain/Domain is used"
+wget https://raw.githubusercontent.com/${GitUser}/multiport/main/install/cf.sh && chmod +x cf.sh && ./cf.sh
+rm -f /root/cf.sh
+clear
+fi
+echo ""
+clear
 #echo -e "\e[0;32mREADY FOR INSTALLATION SCRIPT...\e[0m"
 #echo -e ""
 #sleep 1
