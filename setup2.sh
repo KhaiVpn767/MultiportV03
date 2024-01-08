@@ -1,53 +1,6 @@
 #!/bin/bash
-# =========================================
-# Quick Setup | Script Setup Manager
-# Edition : Stable Edition V1.0
-# Auther  : KhaiVpn767
-# (C) Copyright 2022
-# =========================================
-clear
-DEFBOLD='\e[39;1m'
-RB='\e[31;1m'
-GB='\e[32;1m'
-YB='\e[33;1m'
-BB='\e[34;1m'
-MB='\e[35;1m'
-CB='\e[35;1m'
-WB='\e[37;1m'
-red='\e[1;31m'
-green='\e[0;32m'
-purple='\e[0;35m'
-orange='\e[0;33m'
-NC='\e[0m'
-export Server_URL="raw.githubusercontent.com/KhaiVpn767/MultiportV3/main"
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
-##########################
-MYIP=$(wget -qO- ipv4.icanhazip.com);
-MYIP=$(curl -s ipinfo.io/ip )
-MYIP=$(curl -sS ipv4.icanhazip.com)
-MYIP=$(curl -sS ifconfig.me )
-echo "Checking VPS"
-clear
-red='\e[1;31m'
-green='\e[0;32m'
-yell='\e[1;33m'
-tyblue='\e[1;36m'
-purple='\e[0;35m'
-NC='\e[0m'
-purple() { echo -e "\\033[35;1m${*}\\033[0m"; }
-tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-
-
-red='\e[1;31m'
-green='\e[0;32m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-
+#wget https://github.com/${GitUser}/
+GitUser="KhaiVpn767"
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
 		exit 1
@@ -56,56 +9,87 @@ if [ "$(systemd-detect-virt)" == "openvz" ]; then
 		echo "OpenVZ is not supported"
 		exit 1
 fi
-MYIP=$(wget -qO- icanhazip.com/ip);
-MYIP=$(curl -s ipinfo.io/ip )
-MYIP=$(curl -sS ipv4.icanhazip.com)
-MYIP=$(curl -sS ifconfig.me )
-secs_to_human() {
-    echo "Installation time : $(( ${1} / 3600 )) hours $(( (${1} / 60) % 60 )) minutes $(( ${1} % 60 )) seconds"
-}
-start=$(date +%s)
-
-echo -e "[ ${green}INFO${NC} ] Preparing the autoscript installation ~"
-apt install git curl -y >/dev/null 2>&1
-echo -e "[ ${green}INFO${NC} ] Installation file is ready to begin !"
+red='\e[1;31m'
+green='\e[0;32m'
+NC='\e[0m'
+#IZIN SCRIPT
+MYIP=$(wget -qO- ipinfo.io/ip);
+echo -e ""
+echo -e "\e[94m              .-----------------------------------------------.    "
+echo -e "\e[94m              |          Installing Autoscript Begin          |    "
+echo -e "\e[94m              '-----------------------------------------------'    "
+echo -e "\e[0m"
+echo ""
 sleep 1
-
-if [ -f "/usr/local/etc/xray/domain" ]; then
-echo "Script Already Installed"
+# Insert Password
+Password=khaivpnking
+# Execute
+read -p "Please Insert The License Key : " Passwordnya
+if [ $Password = $Passwordnya ]; then
+clear
+echo -e ""
+echo -e "${green}Permission Accepted...${NC}"
+echo ""
+echo "Thanks For Using This Autoscript-Lite By khaivpn"
+echo ""
+sleep 3
+else
+clear
+echo -e "${red}Permission Denied!${NC}";
+echo -e "${red}Please Insert The Correct License Key !${NC}"
+echo ""
+echo -e "Please Contact ${green}Admin${NC}"
+echo -e "Telegram : t.me/KhaiVpn767"
+rm -f setup2.sh
 exit 0
 fi
-
+clear
+echo -e "\e[32mloading...\e[0m"
+clear
 mkdir /var/lib/premium-script;
-mkdir /var/lib/crot-script;
+default_email=$( curl https://raw.githubusercontent.com/${GitUser}/email/main/default.conf )
 clear
-#echo -e "${red}♦️${NC} ${green}Established By KhaiVpn767 2022${NC} ${red}♦️${NC}"
-#DOWNLOAD SOURCE SCRIPT
-echo -e "${red}    ♦️${NC} ${green} CUSTOM SETUP DOMAIN VPS     ${NC}"
-echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
-echo "1. Use Domain From Script / Gunakan Domain Dari Script"
-echo "2. Choose Your Own Domain / Pilih Domain Sendiri"
-echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
-read -rp "Choose Your Domain Installation : " dom 
-
-if test $dom -eq 1; then
-clear
-wget -q -O /root/cf.sh "https://${Server_URL}/cf.sh"
-chmod +x /root/cf.sh
-./cf.sh
-elif test $dom -eq 2; then
-read -rp "Enter Your Domain : " domen 
-echo $domen > /root/domain
-else 
-echo "Not Found Argument"
-exit 1
+#Nama penyedia script
+echo -e "\e[1;32m════════════════════════════════════════════════════════════\e[0m"
+echo ""
+echo -e "   \e[1;32mPlease enter the name of Provider for Script."
+read -p "   Name : " nm
+echo $nm > /root/provided
+echo ""
+#Email domain
+echo -e "\e[1;32m════════════════════════════════════════════════════════════\e[0m"
+echo -e ""
+echo -e "   \e[1;32mPlease enter your email Domain/Cloudflare."
+echo -e "   \e[1;31m(Press ENTER for default email)\e[0m"
+read -p "   Email : " email
+default=${default_email}
+new_email=$email
+if [[ $email == "" ]]; then
+sts=$default_email
+else
+sts=$new_email
 fi
-echo -e "${GREEN}Done!${NC}"
-sleep 2
-clear
-echo "IP=$host" >> /var/lib/premium-script/ipvps.conf
-echo "IP=$host" >> /var/lib/crot-script/ipvps.conf
-echo "$host" >> /root/domain
-#clear
+# email
+mkdir -p /usr/local/etc/xray/
+touch /usr/local/etc/xray/email
+echo $sts > /usr/local/etc/xray/email
+echo ""
+echo -e "\e[1;32m════════════════════════════════════════════════════════════\e[0m"
+echo ""
+echo -e "   .----------------------------------."
+echo -e "   |\e[1;32mPlease select a domain type below \e[0m|"
+echo -e "   '----------------------------------'"
+echo -e "     \e[1;32m1)\e[0m Enter your Subdomain"
+echo -e "     \e[1;32m2)\e[0m Use a random Subdomain"
+echo -e "   ------------------------------------"
+read -p "   Please select numbers 1-2 or Any Button(Random) : " host
+echo ""
+if [[ $host == "1" ]]; then
+echo -e "   \e[1;32mPlease enter your subdomain "
+read -p "   Subdomain: " host1
+echo "IP=" >> /var/lib/premium-script/ipvps.conf
+echo $host1 > /root/domain
+echo ""
 #echo -e "\e[0;32mREADY FOR INSTALLATION SCRIPT...\e[0m"
 #echo -e ""
 #sleep 1
