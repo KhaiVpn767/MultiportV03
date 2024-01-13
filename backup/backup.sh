@@ -1,65 +1,41 @@
 #!/bin/bash
-# SL
-# ==========================================
-# Color
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHT='\033[0;37m'
-# ==========================================
-# Getting
+#Autoscript-Lite By Vinstechmy
 clear
-IP=$(wget -qO- ipinfo.io/ip);
+IP=$(wget -qO- icanhazip.com);
 date=$(date +"%Y-%m-%d")
 clear
-email=$(cat /home/email)
-if [[ "$email" = "" ]]; then
-echo "Masukkan Email Untuk Menerima Backup"
-read -rp "Email : " -e email
-cat <<EOF>>/home/email
-$email
-EOF
-fi
-clear
-figlet "Backup"
-echo "Mohon Menunggu , Proses Backup sedang berlangsung !!"
-rm -rf /root/backup
+echo " VPS Data Backup By Vinstechmy "
+sleep 1
+echo ""
+echo " Directory Created"
 mkdir /root/backup
-cp /etc/passwd backup/
-cp /etc/group backup/
-cp /etc/shadow backup/
-cp /etc/gshadow backup/
-cp -r /etc/xray backup/xray
-cp -r /root/nsdomain backup/nsdomain
-cp -r /etc/slowdns backup/slowdns
-cp -r /home/vps/public_html backup/public_html
+sleep 1
+echo " Start Backup . . . "
+sleep 1
+clear
+echo " Please Wait VPS Data Backup In Progress . . . "
+cp -r /var/lib/premium-script/ /root/backup/premium-script
+cp -r /usr/local/etc/xray /root/backup/xray
+cp -r /home/vps/public_html /root/backup/public_html
+cp -r /etc/cron.d /root/backup/cron.d &> /dev/null
+cp /etc/crontab /root/backup/crontab &> /dev/null
 cd /root
 zip -r $IP-$date.zip backup > /dev/null 2>&1
 rclone copy /root/$IP-$date.zip dr:backup/
 url=$(rclone link dr:backup/$IP-$date.zip)
 id=(`echo $url | grep '^https' | cut -d'=' -f2`)
 link="https://drive.google.com/u/4/uc?id=${id}&export=download"
-echo -e "
-Detail Backup 
-==================================
-IP VPS        : $IP
-Link Backup   : $link
-Tanggal       : $date
-==================================
-" | mail -s "Backup Data" $email
+clear
+echo -e "\033[1;37mVPS Data Backup By Vinstechmy\033[0m
+\033[1;37mTelegram : https://t.me/Vinstechmy / @Vinstechmy\033[0m"
+echo ""
+echo "Please Copy Link Below & Save In Notepad"
+echo ""
+echo -e "Your VPS IP ( \033[1;37m$IP\033[0m )"
+echo ""
+echo -e "\033[1;37m$link\033[0m"
+echo ""
+echo "If you want to restore data, please enter the link above"
 rm -rf /root/backup
 rm -r /root/$IP-$date.zip
-clear
-echo -e "
-Detail Backup 
-==================================
-IP VPS        : $IP
-Link Backup   : $link
-Tanggal       : $date
-==================================
-"
-echo "Silahkan cek Kotak Masuk $email"
+echo ""
