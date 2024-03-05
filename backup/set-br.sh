@@ -1,19 +1,19 @@
 #!/bin/bash
 # Set-Backup Installation
-# By Vinstechmy
+# By MultiportV3
 #-----------------------------
 curl https://rclone.org/install.sh | bash
 printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/vinstechmy/multiport-websocket/main/OTHERS/rclone.conf"
+wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/KhaiVpn767/MultiportV3/main/OTHERS/rclone.conf"
 git clone  https://github.com/MrMan21/wondershaper.git
 cd wondershaper
 make install
 cd
 rm -rf wondershaper
 cd /usr/bin
-wget -O backup "https://raw.githubusercontent.com/vinstechmy/multiport-websocket/main/BACKUP/backup.sh"
-wget -O restore "https://raw.githubusercontent.com/vinstechmy/multiport-websocket/main/BACKUP/restore.sh"
-wget -O cleaner "https://raw.githubusercontent.com/vinstechmy/multiport-websocket/main/BACKUP/logcleaner.sh"
+wget -O backup "https://raw.githubusercontent.com/KhaiVpn767/MultiportV3/main/BACKUP/backup.sh"
+wget -O restore "https://raw.githubusercontent.com/KhaiVpn767/MultiportV3/main/BACKUP/restore.sh"
+wget -O cleaner "https://raw.githubusercontent.com/KhaiVpn767/MultiportV3/main/BACKUP/logcleaner.sh"
 chmod +x /usr/bin/backup
 chmod +x /usr/bin/restore
 chmod +x /usr/bin/cleaner
